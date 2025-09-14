@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -53,7 +54,7 @@ fun DiceRollerApp(modifier: Modifier = Modifier) {
 fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
     //var for roll
     var result  by remember { mutableIntStateOf(1) } //This ensures the value is not reset by the system since its Composable.
-    var imageResource = when (result) {
+    val imageResource = when (result) {
         1 -> R.drawable.dice_1
         2 -> R.drawable.dice_2
         3 -> R.drawable.dice_3
@@ -61,11 +62,16 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
         5 -> R.drawable.dice_5
         else -> R.drawable.dice_6
     }
+    //Text label that displays the roll number
+    var dynamicText by remember { mutableStateOf("Press the Roll button to begin!") }
     //Create a vertical layout
     Column (
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = dynamicText
+        )
         Image(
             painter = painterResource(imageResource),
             contentDescription = result.toString()
@@ -73,7 +79,10 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
         //Creates space between the two UI components
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = { result = (1..6).random() }) {
+        Button(onClick =
+            { result = (1..6).random()
+            dynamicText = "You rolled a $result!"
+        }) {
             Text(stringResource(R.string.roll))
         }
     }
