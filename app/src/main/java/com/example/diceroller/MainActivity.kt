@@ -49,6 +49,8 @@ fun DiceRollerApp(modifier: Modifier = Modifier) {
     )
 }
 
+// MutableIntStateOf stores the int as a primitive vs MutableStateOf stores it as an integer object.
+
 //Dice rolling button
 @Composable
 fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
