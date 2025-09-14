@@ -67,8 +67,8 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(R.drawable.dice_1),
-            contentDescription = "1"
+            painter = painterResource(imageResource),
+            contentDescription = result.toString()
         )
         //Creates space between the two UI components
         Spacer(modifier = Modifier.height(16.dp))
